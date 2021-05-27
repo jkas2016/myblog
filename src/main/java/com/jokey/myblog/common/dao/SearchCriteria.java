@@ -1,10 +1,17 @@
 package com.jokey.myblog.common.dao;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+/**
+ * Where 조건 K, V
+ *
+ * @param <T>
+ */
+@Builder
+@Getter
+@ToString
 public class SearchCriteria<T> {
 
     public enum SearchOperation {
@@ -21,21 +28,11 @@ public class SearchCriteria<T> {
         NOT_IN
     }
 
-    private String key;
-    private T value;
-    private List<T> list;
-    private SearchOperation operation;
-
-    public SearchCriteria(String key, T value, SearchOperation operation){
-        this.key = key;
-        this.value = value;
-        this.operation = operation;
-    }
-
-    public SearchCriteria(String key, List<T> list, SearchOperation operation){
-        this.key = key;
-        this.list = list;
-        this.operation = operation;
-    }
+    @NonNull
+    private final String key;
+    private final T value;
+    private final List<T> list;
+    @NonNull
+    private final SearchOperation operation;
 
 }

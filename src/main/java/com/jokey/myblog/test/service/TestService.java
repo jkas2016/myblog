@@ -25,9 +25,13 @@ public class TestService {
      */
     public List<TestVO> selectTestList() {
         CustomSpecifications<TestVO> specifications = new CustomSpecifications<>();
-        List<SearchCriteria<?>> list = new ArrayList<>();
-        list.add( new SearchCriteria<>( "name", "test", SearchCriteria.SearchOperation.MATCH ) );
-        specifications.add( list );
+        specifications.add(
+                SearchCriteria.builder().key( "name" ).value( "test1" ).operation( SearchCriteria.SearchOperation.MATCH ).build(),
+                SearchCriteria.builder().key( "name" ).value( "test2" ).operation( SearchCriteria.SearchOperation.MATCH ).build()
+        );
+        specifications.add(
+                SearchCriteria.builder().key( "idx" ).value( 1 ).operation( SearchCriteria.SearchOperation.EQUAL ).build()
+        );
 
         return testMapper.findAll( specifications );
     }
